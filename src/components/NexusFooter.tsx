@@ -27,11 +27,21 @@ export const NexusFooter: React.FC = () => {
           {/* Mission Capsule */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
-                <span className="text-xs font-mono text-amber-400 tracking-widest uppercase font-bold">
-                  Au Multidimensional Solutions Pvt. Ltd.
-                </span>
+              <div className="flex items-center gap-3.5 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FFF0A0] via-[#F5B722] to-[#92400E] p-[1px] shadow-[0_0_15px_rgba(245,183,34,0.3)] shrink-0 overflow-hidden bg-[#030712] flex items-center justify-center p-1">
+                  <img src="/company-logo.png" alt="AuMDS Official Logo" className="w-full h-full object-contain" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                    <span className="text-xs font-mono text-amber-400 tracking-widest uppercase font-bold">
+                      Au Multidimensional Solutions Pvt. Ltd.
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-mono text-slate-500">
+                    AU 79 • 24K MULTIDIMENSIONAL ARCHITECTURE
+                  </span>
+                </div>
               </div>
               <h3 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight font-display">
                 Co-Creating the Universe of Brands.

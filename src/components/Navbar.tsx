@@ -91,12 +91,16 @@ export const Navbar: React.FC = () => {
           >
             {/* 3D Gold & Obsidian Beveled Logo Capsule */}
             <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#FFF0A0] via-[#F5B722] to-[#92400E] p-[1.5px] shadow-[0_0_20px_rgba(245,183,34,0.4)] group-hover:shadow-[0_0_30px_rgba(245,183,34,0.7)] group-hover:scale-105 transition-all duration-300">
-              <div className="w-full h-full bg-[#030712] rounded-[10px] sm:rounded-[14px] flex items-center justify-center relative overflow-hidden">
+              <div className="w-full h-full bg-[#030712] rounded-[10px] sm:rounded-[14px] flex items-center justify-center relative overflow-hidden p-1">
                 {/* Moving Specular Gleam */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-25 -translate-x-[150%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-25 -translate-x-[150%] group-hover:translate-x-[200%] transition-transform duration-700 pointer-events-none" />
                 
-                {/* 24K Core Emblem Icon */}
-                <Terminal className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-amber-400 group-hover:text-amber-300 group-hover:scale-110 transition-all duration-300" />
+                {/* Official Brand Logo */}
+                <img 
+                  src="/company-logo.png" 
+                  alt="AuMDS Official Logo" 
+                  className="w-full h-full object-contain filter drop-shadow-[0_0_6px_rgba(245,183,34,0.6)] group-hover:scale-110 transition-transform duration-300" 
+                />
 
                 {/* Corner Golden Dot Specular Highlight */}
                 <div className="absolute top-1 right-1 w-1 h-1 rounded-full bg-amber-300 shadow-[0_0_6px_#FFE680]" />
