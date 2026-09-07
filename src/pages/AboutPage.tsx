@@ -5,364 +5,440 @@ import { MagneticGlowButton } from '../components/MagneticGlowButton';
 import { ConsultationModal } from '../components/ConsultationModal';
 import { SectionScrollAnimation } from '../components/SectionScrollAnimation';
 import { ElasticTiltCard } from '../components/ElasticTiltCard';
-import { Compass, Sparkles, Target, Lightbulb, Users, ArrowRight, ShieldCheck, Rocket, Award, Globe, Building2, CheckCircle2 } from 'lucide-react';
+import {
+  ArrowRight,
+  CheckCircle2,
+  Code2,
+  Lightbulb,
+  Rocket,
+  Target,
+  Users,
+  Sparkles,
+  Globe,
+  ShieldCheck,
+} from 'lucide-react';
 import { audioEngine } from '../components/AudioEngine';
 import { useNavigate } from 'react-router-dom';
 
-interface Milestone {
+interface TimelineItem {
   year: string;
-  badge: string;
   title: string;
-  desc: string;
-  deliverables: string[];
+  description: string;
 }
 
-const TIMELINE_MILESTONES: Milestone[] = [
+const TIMELINE: TimelineItem[] = [
   {
-    year: '2020',
-    badge: 'COSMIC GENESIS',
-    title: 'Foundational Genesis & Vision',
-    desc: 'The conceptualization of Au Multidimensional Solutions — establishing the philosophy of "Co-creating the Universe of Brands" to unify software, identity, and venture strategy.',
-    deliverables: ['Core Matrix Blueprint', 'Initial Research Labs', 'First 10 Venture Prototypes'],
+    year: '01',
+    title: 'Understand',
+    description:
+      'We begin by understanding the business objective, audience, challenges and opportunities.',
   },
   {
-    year: '2021 - 2022',
-    badge: 'PILOT ECOSYSTEMS',
-    title: 'Incubation of Skill Development Wing (SDW)',
-    desc: 'Launched experimental student developer cohorts, bridging collegiate theoretical knowledge with high-intensity corporate software sprints.',
-    deliverables: ['First 100 Engineers Mentored', 'Open Source Tooling', 'Bengaluru Pilot Meetups'],
+    year: '02',
+    title: 'Design',
+    description:
+      'We transform requirements into clear digital experiences, visual systems and scalable solutions.',
   },
   {
-    year: '2023 - 2024',
-    badge: 'INSTITUTIONAL EXPANSION',
-    title: 'Formal Incorporation & SatChai Guild Rollout',
-    desc: 'AuMDS formally established headquarters in Bengaluru. Structured the official TRIAD Internship Accelerator and inaugurated the SatChai Founder Roundtables.',
-    deliverables: ['MCA & Legal Formalization', '50+ Corporate Deliverables', 'SatChai Global Guild Inception'],
+    year: '03',
+    title: 'Build',
+    description:
+      'Our development approach focuses on reliable technology, responsive interfaces and maintainable code.',
   },
   {
-    year: '2025 - 2026',
-    badge: 'MULTIVERSE SCALE',
-    title: '3D Spatial WebXR & Global Conglomerate Reach',
-    desc: 'Deploying spatial WebXR universes, high-concurrency cloud micro-architectures, and end-to-end corporate ecosystems across India, Southeast Asia, and global markets.',
-    deliverables: ['WebXR & AI Data Engines', '500+ TRIAD Graduates', 'Multi-Scale Brand Portfolios'],
+    year: '04',
+    title: 'Grow',
+    description:
+      'We continuously improve products through feedback, optimization, innovation and measurable outcomes.',
   },
 ];
 
-interface HallOfFameBrand {
-  name: string;
-  category: string;
-  tagline: string;
-  metric: string;
-  color: string;
-}
-
-const HALL_OF_FAME_BRANDS: HallOfFameBrand[] = [
+const CAPABILITIES = [
   {
-    name: 'TRIAD Incubation Core',
-    category: 'Talent Engine',
-    tagline: 'Autonomous student-developer cohort delivering commercial-grade web products.',
-    metric: '500+ Engineers Upskilled',
-    color: 'from-cyan-400 to-blue-500',
+    icon: Code2,
+    title: 'Technology Solutions',
+    description:
+      'Modern web applications and digital solutions designed around real business requirements.',
   },
   {
-    name: 'SatChai Founder Guild',
-    category: 'Venture Network',
-    tagline: 'High-leverage recurring networking roundtables uniting founders and investors.',
-    metric: '25+ Roundtables Hosted',
-    color: 'from-amber-400 to-orange-500',
+    icon: Lightbulb,
+    title: 'Digital Innovation',
+    description:
+      'Creative technology concepts that help organizations explore new opportunities and improve experiences.',
   },
   {
-    name: 'OmniCloud Microservices',
-    category: 'Deep-Tech Platform',
-    tagline: 'Ultra-low latency micro-frontend and distributed edge architecture.',
-    metric: '99.99% High Availability',
-    color: 'from-indigo-400 to-violet-500',
+    icon: Target,
+    title: 'Business Strategy',
+    description:
+      'Practical digital strategies that connect technology decisions with business goals.',
   },
   {
-    name: 'Nexus Brand Universes',
-    category: 'Spatial Design',
-    tagline: 'Holistic 3D brand guidelines and high-converting WebXR spatial web portals.',
-    metric: '40+ Brands Transformed',
-    color: 'from-emerald-400 to-teal-500',
+    icon: Users,
+    title: 'Talent & Collaboration',
+    description:
+      'Collaborative development and learning environments that encourage technical growth and innovation.',
   },
   {
-    name: 'Statutory Corporate Registry',
-    category: 'Legal & Entity',
-    tagline: 'End-to-end institutional incorporation, trademark filing, and tax structuring.',
-    metric: '100% Compliance Record',
-    color: 'from-pink-400 to-rose-500',
+    icon: Globe,
+    title: 'Digital Experiences',
+    description:
+      'Responsive, interactive and visually engaging experiences across modern digital platforms.',
   },
   {
-    name: 'Venture Capital Syndicates',
-    category: 'Dealflow Guild',
-    tagline: 'Curated investor introduction pipeline for seed and Series A scaleups.',
-    metric: '$10M+ Ecosystem Pipeline',
-    color: 'from-yellow-400 to-amber-600',
+    icon: ShieldCheck,
+    title: 'Quality & Reliability',
+    description:
+      'A structured approach to development, testing and continuous improvement.',
   },
 ];
 
 export const AboutPage: React.FC = () => {
-  const [activeMilestone, setActiveMilestone] = useState(3);
+  const [activeStep, setActiveStep] = useState(0);
   const [isConsultOpen, setIsConsultOpen] = useState(false);
   const navigate = useNavigate();
 
+  const openConsultation = () => {
+    audioEngine.playSwoosh();
+    setIsConsultOpen(true);
+  };
+
   return (
-    <div className="relative pt-32 pb-24 z-10 font-sans space-y-16">
+    <div className="relative z-10 pt-28 pb-24 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-        
-        {/* SECTION 1: HERO VIEWPORT & CINEMATIC ORIGIN */}
-        <section className="text-center max-w-4xl mx-auto">
+
+        {/* HERO */}
+        <section className="relative overflow-hidden rounded-[2rem] border border-cyan-400/20 bg-slate-950/80 px-6 py-16 sm:px-12 lg:px-20 text-center shadow-2xl">
+
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute -top-32 -left-32 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
+            <div className="absolute -bottom-32 -right-32 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
+          </div>
+
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/40 bg-slate-900/70 backdrop-blur-xl w-fit mb-6 shadow-2xl"
+            className="relative inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/5 px-4 py-2"
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-            <span className="text-xs font-mono tracking-widest text-cyan-300 uppercase font-bold">
-              COSMIC ORIGIN // ESTABLISHED 2020
+            <Sparkles className="h-4 w-4 text-cyan-300" />
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
+              About AuMDS
             </span>
           </motion.div>
 
-          <SplitTextHeading
-            as="h1"
-            text="Architecting the Universe of Brands"
-            className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white font-display leading-[1.06]"
-          />
+          <div className="relative mt-7">
+            <SplitTextHeading
+              as="h1"
+              text="Building Digital Solutions With Purpose"
+              className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white font-display leading-tight"
+            />
+          </div>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-8 text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-normal"
+            transition={{ delay: 0.2 }}
+            className="relative mx-auto mt-7 max-w-3xl text-base sm:text-lg leading-relaxed text-slate-300"
           >
-            AuMDS (Au Multidimensional Solutions Pvt Ltd) was founded on a singular conviction: modern business growth requires a synchronized multidimensional approach. We eliminate the friction between deep software engineering, brand identity, strategic expansion, and talent incubation.
+            AuMDS is focused on creating meaningful digital experiences by
+            bringing together technology, creativity, strategy and
+            collaboration. We aim to turn ideas into practical and scalable
+            digital solutions.
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="mt-10 flex flex-wrap justify-center gap-4"
-          >
-            <motion.button
-              whileHover={{ scale: 1.06, y: -2, transition: { type: 'spring', stiffness: 450, damping: 12 } }}
-              whileTap={{ scale: 0.92 }}
-              onClick={() => {
-                audioEngine.playSwoosh();
-                setIsConsultOpen(true);
-              }}
-              className="px-7 py-3.5 rounded-full bg-gradient-to-r from-cyan-400 via-sky-400 to-amber-400 text-slate-950 font-extrabold text-xs font-mono uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-cyan-500/30"
+          <div className="relative mt-9 flex flex-wrap justify-center gap-4">
+            <MagneticGlowButton
+              variant="primary"
+              onClick={() => navigate('/services')}
             >
-              <Sparkles className="w-4 h-4" />
-              <span>Let Us Grow Our Businesses Together</span>
-            </motion.button>
-            <MagneticGlowButton variant="secondary" onClick={() => navigate('/services')}>
-              Explore Capabilities
+              Explore Our Services
             </MagneticGlowButton>
-          </motion.div>
+
+            <MagneticGlowButton
+              variant="secondary"
+              onClick={openConsultation}
+            >
+              Start a Conversation
+            </MagneticGlowButton>
+          </div>
         </section>
 
-        {/* SECTION 2: 3D TIMELINE MILESTONE BEADS (2020 - 2026) */}
-        <SectionScrollAnimation className="section-aura-cyan p-8 sm:p-12 rounded-3xl">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wider block">
-              CHRONOLOGY & EXPANSION
+        {/* WHO WE ARE */}
+        <SectionScrollAnimation className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+
+          <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-8 sm:p-10 backdrop-blur-xl">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-400">
+              Who We Are
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display mt-1">
-              The Evolution Timeline
+
+            <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold text-white font-display">
+              Technology meets creativity.
             </h2>
-            <p className="text-slate-300 text-xs sm:text-sm mt-2">
-              Click each milestone bead to view the breakthroughs and deliverables of that era.
+
+            <p className="mt-5 text-sm sm:text-base leading-relaxed text-slate-300">
+              We believe technology should solve real problems and create
+              better experiences. Our work combines thoughtful design,
+              engineering and strategic thinking to create digital products
+              that are useful, engaging and adaptable.
+            </p>
+
+            <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-300">
+              From digital experiences to technology-driven initiatives, we
+              focus on understanding the problem first and then building the
+              right solution around it.
             </p>
           </div>
 
-          {/* Timeline Beads Selector */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {TIMELINE_MILESTONES.map((m, idx) => {
-              const isActive = activeMilestone === idx;
-              return (
-                <motion.button
-                  key={m.year}
-                  whileHover={{ scale: 1.04, y: -3, transition: { type: 'spring', stiffness: 450, damping: 12 } }}
-                  whileTap={{ scale: 0.94 }}
-                  onClick={() => {
-                    audioEngine.playClick();
-                    setActiveMilestone(idx);
-                  }}
-                  onMouseEnter={() => audioEngine.playHover()}
-                  className={`p-6 rounded-3xl border text-left transition-all duration-300 backdrop-blur-xl ${
-                    isActive
-                      ? 'bg-[#0F172A] border-cyan-400 shadow-[0_0_25px_rgba(6,182,212,0.35)] ring-1 ring-cyan-400'
-                      : 'bg-[#0A0F1D]/70 border-white/10 hover:border-cyan-500/40'
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-2xl font-extrabold font-mono text-cyan-400">{m.year}</span>
-                    <span className="text-[9px] font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full font-bold border border-amber-400/20">
-                      {m.badge}
-                    </span>
-                  </div>
-                  <h3 className="font-bold text-white text-sm line-clamp-1">{m.title}</h3>
-                </motion.button>
-              );
-            })}
-          </div>
-
-          {/* Active Milestone Card with Slide Animation */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeMilestone}
-              initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, y: -20, filter: 'blur(6px)' }}
-              transition={{ type: 'spring', stiffness: 350, damping: 22 }}
-              className="p-8 sm:p-10 rounded-3xl bg-slate-900/80 border border-cyan-500/30 backdrop-blur-2xl shadow-2xl relative overflow-hidden"
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
-                <div className="lg:col-span-2 space-y-4">
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl font-extrabold font-mono text-amber-400">
-                      {TIMELINE_MILESTONES[activeMilestone].year}
-                    </span>
-                    <span className="text-xs font-mono px-3.5 py-1 rounded-full bg-cyan-950 border border-cyan-500/30 text-cyan-300 font-bold">
-                      {TIMELINE_MILESTONES[activeMilestone].badge}
-                    </span>
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
-                    {TIMELINE_MILESTONES[activeMilestone].title}
-                  </h3>
-                  <p className="text-slate-200 text-sm sm:text-base leading-relaxed font-normal">
-                    {TIMELINE_MILESTONES[activeMilestone].desc}
-                  </p>
-                </div>
-
-                <div className="p-6 rounded-2xl bg-slate-950/90 border border-white/10 space-y-3 shadow-xl">
-                  <span className="text-xs font-mono text-cyan-400 uppercase tracking-wider block font-bold">
-                    Historic Deliverables:
-                  </span>
-                  {TIMELINE_MILESTONES[activeMilestone].deliverables.map((d, i) => (
-                    <div key={i} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-200">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                      <span>{d}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </SectionScrollAnimation>
-
-        {/* SECTION 3: HALL OF FAME GALAXY GALLERY */}
-        <SectionScrollAnimation className="section-aura-indigo p-8 sm:p-12 rounded-3xl">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-semibold text-amber-400 uppercase tracking-wider block font-mono">
-              CO-CREATED ECOSYSTEMS
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display mt-1">
-              Hall of Fame Galaxy Gallery
-            </h2>
-            <p className="text-slate-300 text-xs sm:text-sm mt-2">
-              Approved brands, proprietary accelerators, and institutional platforms thriving within the AuMDS Universe.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {HALL_OF_FAME_BRANDS.map((brand, idx) => (
-              <ElasticTiltCard
-                key={brand.name}
-                glowColor="rgba(56, 189, 248, 0.3)"
-                className="cursor-pointer"
-              >
-                <div className="p-7 rounded-3xl bg-slate-900/60 border border-white/10 hover:border-cyan-500/50 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between h-full shadow-lg">
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider px-3 py-1 rounded-full bg-cyan-950/70 border border-cyan-500/40 font-bold">
-                        {brand.category}
-                      </span>
-                      <span className="text-xs font-mono text-amber-400 font-bold">
-                        {brand.metric}
-                      </span>
-                    </div>
-
-                    <h3 className="text-xl font-bold text-white font-display mb-2">{brand.name}</h3>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">{brand.tagline}</p>
-                  </div>
-
-                  <div className="mt-6 pt-3.5 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
-                    <span>GALAXY NODE #{idx + 1}</span>
-                    <span className="text-cyan-400 font-semibold">ACTIVE & VERIFIED</span>
-                  </div>
-                </div>
-              </ElasticTiltCard>
-            ))}
-          </div>
-        </SectionScrollAnimation>
-
-        {/* SECTION 4: PROCESS PIPELINE */}
-        <SectionScrollAnimation className="section-aura-amber p-8 sm:p-12 rounded-3xl">
-          <div className="max-w-3xl mb-10">
-            <span className="text-xs font-semibold text-amber-400 tracking-wider uppercase font-mono">METHODOLOGY PIPELINE</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-1 font-display">
-              From Concept to Autonomous Scale
-            </h2>
-            <p className="text-slate-300 text-xs sm:text-sm mt-2">
-              Our 4-step delivery pipeline engineered for high-concurrency software and unified brand ecosystems.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             {[
-              { step: '01', title: 'Deep Discovery', desc: 'Architecture specification, unit economics, regulatory planning, and technical roadmap.' },
-              { step: '02', title: 'Universe Design', desc: 'Spatial 3D identity, interactive UI tokens, and multi-channel brand positioning.' },
-              { step: '03', title: 'Rapid Engineering', desc: 'Agile sprints deploying React, Next.js, WebGL, AI pipelines, and microservices.' },
-              { step: '04', title: 'Guild Acceleration', desc: 'Plugging into SatChai networking, TRIAD squad scaling, and ongoing telemetry.' },
-            ].map((p) => (
+              ['Technology', 'Engineering-driven solutions'],
+              ['Innovation', 'Ideas converted into experiences'],
+              ['Collaboration', 'People-first working approach'],
+              ['Growth', 'Continuous improvement'],
+            ].map(([title, text], index) => (
               <motion.div
-                key={p.step}
-                whileHover={{ y: -4, scale: 1.02 }}
-                className="p-6 rounded-3xl bg-slate-900/70 border border-white/10 shadow-lg backdrop-blur-xl"
+                key={title}
+                whileHover={{ y: -6, scale: 1.02 }}
+                className="rounded-3xl border border-cyan-400/15 bg-slate-950/80 p-6 shadow-xl"
               >
-                <span className="text-xs font-mono text-amber-400 font-bold">PHASE {p.step}</span>
-                <h3 className="text-base font-bold text-white mt-1 mb-2 font-display">{p.title}</h3>
-                <p className="text-xs text-slate-300 leading-relaxed font-normal">{p.desc}</p>
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300">
+                  <span className="text-sm font-bold">0{index + 1}</span>
+                </div>
+
+                <h3 className="mt-5 font-bold text-white">{title}</h3>
+
+                <p className="mt-2 text-xs leading-relaxed text-slate-400">
+                  {text}
+                </p>
               </motion.div>
             ))}
           </div>
         </SectionScrollAnimation>
 
-        {/* SECTION 5: FINAL CLOSING CTA */}
-        <SectionScrollAnimation className="text-center py-16 px-6 sm:px-12 rounded-3xl bg-gradient-to-b from-[#0F172A] to-[#030712] border border-cyan-500/40 shadow-2xl relative overflow-hidden">
-          <div className="max-w-2xl mx-auto space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950 border border-cyan-500/40 text-cyan-300 text-xs font-semibold">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>THE FUTURE IS CO-CREATED</span>
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-white font-display">
-              Let Us Grow Our Businesses Together
+        {/* MISSION & VISION */}
+        <SectionScrollAnimation>
+          <div className="mb-10 text-center">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-400">
+              Our Direction
+            </span>
+
+            <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold text-white font-display">
+              Mission & Vision
             </h2>
-            <p className="text-slate-200 text-sm sm:text-base leading-relaxed">
-              Whether you are scaling an enterprise, registering a startup, or cultivating an elite engineering squad, AuMDS is your multidimensional co-creation partner.
-            </p>
-            <div className="pt-4 flex justify-center gap-4">
-              <motion.button
-                whileHover={{ scale: 1.06, y: -2, transition: { type: 'spring', stiffness: 450, damping: 12 } }}
-                whileTap={{ scale: 0.92 }}
-                onClick={() => {
-                  audioEngine.playSwoosh();
-                  setIsConsultOpen(true);
-                }}
-                className="px-8 py-3.5 rounded-full bg-gradient-to-r from-cyan-400 via-sky-400 to-amber-400 text-slate-950 font-extrabold text-xs font-mono uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-cyan-500/30"
-              >
-                <Sparkles className="w-4 h-4" />
-                <span>Initialize Free Consultation</span>
-              </motion.button>
-            </div>
           </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <ElasticTiltCard
+              glowColor="rgba(34, 211, 238, 0.25)"
+              className="h-full"
+            >
+              <div className="h-full rounded-3xl border border-cyan-400/20 bg-slate-900/70 p-8">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-400/10">
+                  <Target className="h-6 w-6 text-cyan-300" />
+                </div>
+
+                <h3 className="mt-6 text-2xl font-bold text-white">
+                  Our Mission
+                </h3>
+
+                <p className="mt-4 text-sm leading-relaxed text-slate-300">
+                  To create reliable, innovative and human-centered digital
+                  solutions that help businesses and individuals move from
+                  ideas to meaningful outcomes.
+                </p>
+              </div>
+            </ElasticTiltCard>
+
+            <ElasticTiltCard
+              glowColor="rgba(139, 92, 246, 0.25)"
+              className="h-full"
+            >
+              <div className="h-full rounded-3xl border border-violet-400/20 bg-slate-900/70 p-8">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-400/10">
+                  <Rocket className="h-6 w-6 text-violet-300" />
+                </div>
+
+                <h3 className="mt-6 text-2xl font-bold text-white">
+                  Our Vision
+                </h3>
+
+                <p className="mt-4 text-sm leading-relaxed text-slate-300">
+                  To build a future where technology, creativity and
+                  collaboration work together to create sustainable digital
+                  growth and better user experiences.
+                </p>
+              </div>
+            </ElasticTiltCard>
+
+          </div>
+        </SectionScrollAnimation>
+
+        {/* CAPABILITIES */}
+        <SectionScrollAnimation>
+          <div className="mb-10 max-w-3xl">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-400">
+              What We Do
+            </span>
+
+            <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold text-white font-display">
+              Capabilities built around real needs.
+            </h2>
+
+            <p className="mt-3 text-sm leading-relaxed text-slate-400">
+              Our multidisciplinary approach helps us create solutions that
+              combine technology, design, strategy and collaboration.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {CAPABILITIES.map((item, index) => {
+              const Icon = item.icon;
+
+              return (
+                <ElasticTiltCard
+                  key={item.title}
+                  glowColor="rgba(56, 189, 248, 0.22)"
+                >
+                  <div className="h-full rounded-3xl border border-white/10 bg-slate-900/70 p-7">
+                    <div className="flex items-center justify-between">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-400/10">
+                        <Icon className="h-5 w-5 text-cyan-300" />
+                      </div>
+
+                      <span className="text-xs font-mono text-slate-500">
+                        0{index + 1}
+                      </span>
+                    </div>
+
+                    <h3 className="mt-6 text-lg font-bold text-white">
+                      {item.title}
+                    </h3>
+
+                    <p className="mt-3 text-sm leading-relaxed text-slate-400">
+                      {item.description}
+                    </p>
+
+                    <div className="mt-6 flex items-center gap-2 text-xs font-semibold text-cyan-300">
+                      <span>Learn more</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </div>
+                  </div>
+                </ElasticTiltCard>
+              );
+            })}
+          </div>
+        </SectionScrollAnimation>
+
+        {/* APPROACH */}
+        <SectionScrollAnimation className="rounded-3xl border border-cyan-400/15 bg-slate-950/70 p-8 sm:p-12">
+
+          <div className="text-center max-w-2xl mx-auto">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-400">
+              Our Approach
+            </span>
+
+            <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold text-white font-display">
+              A simple path from idea to impact.
+            </h2>
+          </div>
+
+          <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {TIMELINE.map((item, index) => {
+              const active = activeStep === index;
+
+              return (
+                <motion.button
+                  key={item.year}
+                  onClick={() => {
+                    audioEngine.playClick();
+                    setActiveStep(index);
+                  }}
+                  whileHover={{ y: -4 }}
+                  className={`rounded-2xl border p-5 text-left transition-all ${
+                    active
+                      ? 'border-cyan-400/60 bg-cyan-400/10'
+                      : 'border-white/10 bg-slate-900/60 hover:border-cyan-400/30'
+                  }`}
+                >
+                  <span className="text-xs font-mono text-cyan-400">
+                    {item.year}
+                  </span>
+
+                  <h3 className="mt-3 font-bold text-white">
+                    {item.title}
+                  </h3>
+                </motion.button>
+              );
+            })}
+          </div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeStep}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              className="mt-5 rounded-2xl border border-white/10 bg-slate-900/80 p-7"
+            >
+              <div className="flex items-start gap-4">
+                <div className="mt-1">
+                  <CheckCircle2 className="h-5 w-5 text-emerald-400" />
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-bold text-white">
+                    {TIMELINE[activeStep].title}
+                  </h3>
+
+                  <p className="mt-2 text-sm leading-relaxed text-slate-300">
+                    {TIMELINE[activeStep].description}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+        </SectionScrollAnimation>
+
+        {/* CTA */}
+        <SectionScrollAnimation>
+          <section className="relative overflow-hidden rounded-[2rem] border border-cyan-400/20 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 px-6 py-14 text-center sm:px-12">
+
+            <div className="absolute -top-20 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
+
+            <div className="relative mx-auto max-w-3xl">
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
+                Let's Build Together
+              </span>
+
+              <h2 className="mt-3 text-3xl sm:text-5xl font-extrabold text-white font-display">
+                Have an idea worth building?
+              </h2>
+
+              <p className="mt-5 text-sm sm:text-base leading-relaxed text-slate-300">
+                Let's discuss your requirements and explore how technology,
+                creativity and strategy can turn your idea into a practical
+                digital solution.
+              </p>
+
+              <div className="mt-8 flex justify-center">
+                <MagneticGlowButton
+                  variant="primary"
+                  onClick={openConsultation}
+                >
+                  Start a Conversation
+                </MagneticGlowButton>
+              </div>
+            </div>
+          </section>
         </SectionScrollAnimation>
 
       </div>
 
-      <ConsultationModal isOpen={isConsultOpen} onClose={() => setIsConsultOpen(false)} />
+      <ConsultationModal
+        isOpen={isConsultOpen}
+        onClose={() => setIsConsultOpen(false)}
+      />
     </div>
   );
 };
