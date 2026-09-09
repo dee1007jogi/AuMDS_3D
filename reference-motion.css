@@ -1,0 +1,45 @@
+
+/* Reference animation implementation — ScrollCraft-inspired patterns adapted to AuMDS */
+.sc-depth-section{perspective:1200px;perspective-origin:50% 45%;overflow:clip}
+.sc-depth-item{transform-style:preserve-3d;will-change:transform,opacity}
+.sc-clip-reveal{clip-path:inset(0 0 100% 0);opacity:0;transition:clip-path 1s cubic-bezier(.22,1,.36,1),opacity .7s ease}
+.sc-clip-reveal.sc-active{clip-path:inset(0 0 0 0);opacity:1}
+.sc-word{display:inline-block;opacity:0;transform:translate3d(0,1.1em,0) rotateX(-70deg);transform-origin:50% 100%;will-change:transform,opacity}
+.sc-words-ready .sc-word{animation:scWordIn .8s cubic-bezier(.22,1,.36,1) forwards;animation-delay:calc(var(--i) * 55ms)}
+@keyframes scWordIn{to{opacity:1;transform:none}}
+.sc-stack{position:relative}
+.sc-stack .service{transform-style:preserve-3d;transition:transform .6s cubic-bezier(.22,1,.36,1),opacity .6s ease,filter .6s ease}
+.sc-stack .service:nth-child(1){--stack-depth:0}
+.sc-stack .service:nth-child(2){--stack-depth:1}
+.sc-stack .service:nth-child(3){--stack-depth:2}
+.sc-stack .service:nth-child(4){--stack-depth:3}
+.sc-stack .service:nth-child(5){--stack-depth:4}
+.sc-parallax{will-change:transform}
+.sc-fold{transform-style:preserve-3d;transform-origin:50% 0;will-change:transform,opacity}
+.sc-progress-line{position:relative}
+.sc-progress-line .steps{position:relative;z-index:1}
+.sc-progress-line .steps::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:rgba(10,19,15,.16)}
+.sc-progress-line .steps::after{content:"";position:absolute;left:0;top:0;right:0;width:auto;height:2px;background:var(--gold);box-shadow:0 0 18px rgba(215,184,106,.5);transform:scaleX(calc(var(--journey-progress,0) / 100));transform-origin:left}
+.sc-portal{position:relative;overflow:hidden}
+.sc-portal::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,transparent 0 18%,rgba(7,17,14,.8) 72%);transform:scale(1.25);opacity:0;pointer-events:none;transition:opacity .8s ease,transform 1.2s cubic-bezier(.22,1,.36,1)}
+.sc-portal.sc-active::after{opacity:.35;transform:scale(1)}
+.sc-horizontal-hint{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.55}
+.sc-horizontal-hint::after{content:"→";font-size:18px;transition:transform .3s ease}
+.sc-horizontal-hint:hover::after{transform:translateX(6px)}
+@media (min-width:900px){
+  .sc-stack{isolation:isolate}
+  .sc-stack .service{position:relative;z-index:calc(10 - var(--stack-depth))}
+  .sc-stack .service:not(:first-child){margin-top:-22px}
+}
+@media (max-width:899px){
+  .sc-stack .service:not(:first-child){margin-top:0}
+  .sc-progress-line .steps{padding-left:28px;border-top:0}
+  .sc-progress-line .steps::before{left:10px;right:auto;top:0;bottom:0;width:2px;height:auto}
+  .sc-progress-line .steps::after{left:10px;right:auto;top:0;bottom:0;width:2px;height:auto;transform:scaleY(calc(var(--journey-progress,0) / 100));transform-origin:top}
+  .sc-progress-line .step{border-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  .sc-word{opacity:1!important;transform:none!important;animation:none!important}
+  .sc-clip-reveal{clip-path:none;opacity:1}
+  .sc-depth-item,.sc-parallax,.sc-fold{transform:none!important}
+}
