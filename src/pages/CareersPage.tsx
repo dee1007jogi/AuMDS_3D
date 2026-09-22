@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { SplitTextHeading } from '../components/SplitTextHeading';
 import { SectionScrollAnimation } from '../components/SectionScrollAnimation';
 import { ElasticTiltCard } from '../components/ElasticTiltCard';
-import { Sparkles, Users, Briefcase, Code, Terminal, Rocket, CheckCircle2, ArrowRight, Layers, Cpu, Award, Send } from 'lucide-react';
+import { EmotionButton } from '../components/EmotionButton';
+import { Sparkles, CheckCircle2, ArrowRight, Send } from 'lucide-react';
 import { audioEngine } from '../components/AudioEngine';
 
 interface CareerRole {
@@ -66,7 +67,6 @@ const ROLES: CareerRole[] = [
 ];
 
 export const CareersPage: React.FC = () => {
-  const [selectedRole, setSelectedRole] = useState<CareerRole | null>(null);
   const [appStep, setAppStep] = useState(1);
   const [appData, setAppData] = useState({
     name: '',
@@ -81,7 +81,6 @@ export const CareersPage: React.FC = () => {
 
   const handleApplyClick = (role: CareerRole) => {
     audioEngine.playClick();
-    setSelectedRole(role);
     setAppData(prev => ({ ...prev, role: role.title }));
     const formEl = document.getElementById('career-application-orbit');
     if (formEl) formEl.scrollIntoView({ behavior: 'smooth' });
@@ -94,34 +93,34 @@ export const CareersPage: React.FC = () => {
   };
 
   return (
-    <div className="relative pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto font-sans space-y-20">
+    <div className="relative pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto font-sans text-[var(--foreground)] space-y-24">
       {/* SECTION 1: HERO VIEWPORT */}
       <section className="text-center max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/70 border border-cyan-500/40 text-cyan-300 text-xs font-semibold mb-6 shadow-2xl"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#9047ff]/10 border border-[#9047ff]/30 text-[#9047ff] text-xs font-mono font-semibold mb-6 shadow-sm"
         >
-          <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-          <span>JOIN THE CO-CREATION ENGINE</span>
+          <Sparkles className="w-3.5 h-3.5 text-[#9047ff]" />
+          <span className="uppercase tracking-widest">Join the Creative Collective</span>
         </motion.div>
 
         <SplitTextHeading
           as="h1"
           text="Shape the Universe of Brands"
-          className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white font-display tracking-tight leading-[1.08]"
+          className="text-4xl sm:text-6xl md:text-7xl font-serif italic font-normal tracking-tight leading-[1.08] text-[var(--foreground)]"
         />
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="mt-6 text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-normal"
+          className="mt-6 text-[var(--foreground)]/70 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-normal font-sans"
         >
           At AuMDS, we are reimagining how companies are born, engineered, branded, and scaled. Join a high-velocity collective of engineers, designers, and venture architects.
         </motion.p>
 
-        {/* Orbiting People Telemetry Banner */}
+        {/* Telemetry Banner */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -134,10 +133,10 @@ export const CareersPage: React.FC = () => {
             { label: 'Deep-Tech Stack', desc: 'Next.js, Three.js, AI/ML' },
             { label: 'SatChai Guild', desc: 'Global Venture Access' },
           ].map((item) => (
-            <ElasticTiltCard key={item.label}>
-              <div className="p-5 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-xl text-center shadow-lg">
-                <span className="text-sm font-bold text-cyan-400 block">{item.label}</span>
-                <span className="text-[11px] text-slate-300 mt-1 block font-normal">{item.desc}</span>
+            <ElasticTiltCard key={item.label} glowColor="rgba(144, 71, 255, 0.2)">
+              <div className="p-5 rounded-2xl bg-[var(--card)]/50 border border-[#9047ff]/20 backdrop-blur-xl text-center shadow-md">
+                <span className="text-sm font-bold text-[#9047ff] block font-mono">{item.label}</span>
+                <span className="text-[11px] text-[var(--foreground)]/60 mt-1 block font-normal font-sans">{item.desc}</span>
               </div>
             </ElasticTiltCard>
           ))}
@@ -145,71 +144,71 @@ export const CareersPage: React.FC = () => {
       </section>
 
       {/* SECTION 2: OPEN ROLES MATRIX */}
-      <SectionScrollAnimation className="section-aura-cyan p-8 sm:p-12 rounded-3xl">
+      <SectionScrollAnimation className="p-8 sm:p-12 rounded-[2.5rem] border border-[#9047ff]/20 bg-[var(--card)]/40 backdrop-blur-xl">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
-            <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wider block font-mono">
+            <span className="text-xs font-semibold text-[#9047ff] uppercase tracking-widest block font-mono">
               ACTIVE POSITIONS // BENGALURU
             </span>
-            <h2 className="text-2xl sm:text-4xl font-bold text-white font-display mt-1">
+            <h2 className="text-3xl sm:text-5xl font-serif italic font-normal text-[var(--foreground)] mt-2">
               Explore Open Orbits
             </h2>
           </div>
-          <span className="text-xs font-mono text-slate-400">
+          <span className="text-xs font-mono text-[var(--foreground)]/50">
             {ROLES.length} High-Impact Positions Open
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {ROLES.map((role) => (
-            <ElasticTiltCard key={role.id} glowColor="rgba(56, 189, 248, 0.35)">
-              <div className="p-7 sm:p-8 rounded-3xl bg-slate-900/70 border border-white/10 hover:border-cyan-500/50 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between h-full shadow-lg">
+          {ROLES.map((role, idx) => (
+            <ElasticTiltCard key={role.id} glowColor="rgba(144, 71, 255, 0.25)">
+              <div className="p-7 sm:p-8 rounded-[2rem] bg-[var(--card)]/60 border border-[#9047ff]/20 hover:border-[#9047ff]/50 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between h-full shadow-lg">
                 <div>
-                  <div className="flex flex-wrap items-center gap-2 mb-3.5">
-                    <span className="px-3 py-1 rounded-full bg-cyan-950 border border-cyan-500/40 text-cyan-300 text-[10px] font-semibold">
+                  <div className="flex flex-wrap items-center gap-2 mb-4">
+                    <span className="px-3 py-1 rounded-full bg-[#9047ff]/10 border border-[#9047ff]/30 text-[#9047ff] text-[10px] font-mono font-semibold">
                       {role.department}
                     </span>
-                    <span className="px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-[10px] font-mono">
+                    <span className="px-3 py-1 rounded-full bg-[var(--background)] border border-[#9047ff]/15 text-[var(--foreground)]/70 text-[10px] font-mono">
                       {role.level}
                     </span>
-                    <span className="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-400/20">
+                    <span className="px-3 py-1 rounded-full bg-[#9047ff]/10 text-[#9047ff] text-[10px] font-mono font-bold border border-[#9047ff]/20">
                       {role.type}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white font-display mb-2">{role.title}</h3>
-                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">{role.summary}</p>
+                  <div className="flex items-baseline justify-between mb-2">
+                    <h3 className="text-xl font-serif italic font-semibold text-[var(--foreground)]">{role.title}</h3>
+                    <span className="text-xs font-mono text-[#9047ff]">(0{idx + 1})</span>
+                  </div>
+                  <p className="text-[var(--foreground)]/70 text-xs sm:text-sm leading-relaxed mb-5 font-normal font-sans">{role.summary}</p>
 
-                  {/* Skill Tree Hologram */}
-                  <div className="mb-4">
-                    <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-2 font-semibold">
-                      Required Skill Tree:
+                  {/* Skill Tree */}
+                  <div className="mb-5">
+                    <span className="text-[10px] font-mono text-[var(--foreground)]/50 uppercase tracking-wider block mb-2 font-semibold">
+                      Required Skill Matrix:
                     </span>
                     <div className="flex flex-wrap gap-1.5">
                       {role.skillTree.map((st, i) => (
-                        <motion.span
+                        <span
                           key={i}
-                          whileHover={{ scale: 1.06, y: -2 }}
-                          className="px-2.5 py-1 rounded-lg bg-slate-950/80 border border-white/10 text-cyan-300 text-[11px] font-mono"
+                          className="px-2.5 py-1 rounded-lg bg-[var(--background)]/80 border border-[#9047ff]/20 text-[#9047ff] text-[11px] font-mono"
                         >
                           {st}
-                        </motion.span>
+                        </span>
                       ))}
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                  <span className="text-xs text-slate-400 font-mono">{role.location}</span>
-                  <motion.button
-                    whileHover={{ scale: 1.06, y: -2, transition: { type: 'spring', stiffness: 450, damping: 12 } }}
-                    whileTap={{ scale: 0.92 }}
+                <div className="pt-4 border-t border-[#9047ff]/15 flex items-center justify-between">
+                  <span className="text-xs text-[var(--foreground)]/50 font-mono">{role.location}</span>
+                  <EmotionButton
+                    variant="secondary"
+                    className="!py-2 !px-5 !text-xs"
                     onClick={() => handleApplyClick(role)}
-                    className="px-5 py-2.5 rounded-full bg-gradient-to-r from-cyan-400 to-amber-400 text-slate-950 font-bold text-xs font-mono uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-cyan-500/20"
                   >
-                    Apply Orbit
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </motion.button>
+                    Apply Now
+                  </EmotionButton>
                 </div>
               </div>
             </ElasticTiltCard>
@@ -217,19 +216,19 @@ export const CareersPage: React.FC = () => {
         </div>
       </SectionScrollAnimation>
 
-      {/* SECTION 3: 3D MULTI-STEP APPLICATION FLOW ORBIT */}
-      <SectionScrollAnimation id="career-application-orbit" className="section-aura-indigo p-6 sm:p-12 rounded-3xl">
+      {/* SECTION 3: APPLICATION FLOW */}
+      <SectionScrollAnimation id="career-application-orbit" className="p-8 sm:p-14 rounded-[2.5rem] border border-[#9047ff]/20 bg-[var(--card)]/40 backdrop-blur-xl">
         <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-950 border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>3-STEP APPLICATION FLOW ORBIT</span>
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#9047ff]/10 border border-[#9047ff]/30 text-[#9047ff] text-xs font-mono font-semibold mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-[#9047ff]" />
+              <span>3-Step Application Process</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white font-display">
-              Candidate Telemetry Submission
+            <h3 className="text-3xl sm:text-4xl font-serif italic font-normal text-[var(--foreground)]">
+              Candidate Transmission
             </h3>
-            <p className="text-slate-300 text-sm mt-1">
-              Applying for: <span className="text-cyan-400 font-semibold">{appData.role}</span>
+            <p className="text-[var(--foreground)]/70 text-sm mt-2 font-sans">
+              Applying for: <span className="text-[#9047ff] font-semibold">{appData.role}</span>
             </p>
 
             {/* Stepper Progress */}
@@ -238,7 +237,7 @@ export const CareersPage: React.FC = () => {
                 <div
                   key={step}
                   className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
-                    appStep >= step ? 'bg-gradient-to-r from-cyan-400 to-amber-400' : 'bg-slate-800'
+                    appStep >= step ? 'bg-[#9047ff]' : 'bg-[var(--card)]/80 border border-[#9047ff]/15'
                   }`}
                 />
               ))}
@@ -246,160 +245,153 @@ export const CareersPage: React.FC = () => {
           </div>
 
           {!isSubmitted ? (
-            <form onSubmit={handleAppSubmit} className="space-y-4">
-              {/* STEP 1: IDENTITY */}
+            <form onSubmit={handleAppSubmit} className="space-y-5">
+              {/* STEP 1 */}
               {appStep === 1 && (
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   className="space-y-4"
                 >
-                  <h4 className="text-xs font-semibold text-cyan-400 uppercase tracking-wider font-mono">
+                  <h4 className="text-xs font-mono font-semibold text-[#9047ff] uppercase tracking-wider">
                     Step 1: Personal & Contact Coordinates
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">FULL NAME *</label>
+                      <label className="block text-xs font-mono font-semibold text-[var(--foreground)]/70 mb-1.5">FULL NAME *</label>
                       <input
                         type="text"
                         required
                         value={appData.name}
                         onChange={(e) => setAppData({ ...appData, name: e.target.value })}
                         placeholder="Rohan Sharma"
-                        className="w-full bg-slate-950/90 border border-white/10 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-cyan-400 font-medium"
+                        className="w-full bg-[var(--background)]/80 border border-[#9047ff]/20 rounded-xl p-3 text-sm text-[var(--foreground)] focus:outline-none focus:border-[#9047ff] font-medium"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">EMAIL ADDRESS *</label>
+                      <label className="block text-xs font-mono font-semibold text-[var(--foreground)]/70 mb-1.5">EMAIL ADDRESS *</label>
                       <input
                         type="email"
                         required
                         value={appData.email}
                         onChange={(e) => setAppData({ ...appData, email: e.target.value })}
                         placeholder="rohan@domain.com"
-                        className="w-full bg-slate-950/90 border border-white/10 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-cyan-400 font-mono"
+                        className="w-full bg-[var(--background)]/80 border border-[#9047ff]/20 rounded-xl p-3 text-sm text-[var(--foreground)] focus:outline-none focus:border-[#9047ff] font-mono"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">PHONE NUMBER</label>
+                    <label className="block text-xs font-mono font-semibold text-[var(--foreground)]/70 mb-1.5">PHONE NUMBER</label>
                     <input
                       type="tel"
                       value={appData.phone}
                       onChange={(e) => setAppData({ ...appData, phone: e.target.value })}
                       placeholder="+91 98765 43210"
-                      className="w-full bg-slate-950/90 border border-white/10 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-cyan-400 font-mono"
+                      className="w-full bg-[var(--background)]/80 border border-[#9047ff]/20 rounded-xl p-3 text-sm text-[var(--foreground)] focus:outline-none focus:border-[#9047ff] font-mono"
                     />
                   </div>
-                  <div className="flex justify-end pt-2">
-                    <motion.button
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.94 }}
+                  <div className="flex justify-end pt-3">
+                    <EmotionButton
+                      variant="primary"
                       type="button"
                       onClick={() => {
                         audioEngine.playClick();
                         setAppStep(2);
                       }}
-                      className="px-7 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-amber-400 text-slate-950 font-bold text-xs font-mono uppercase tracking-wider shadow-lg shadow-cyan-500/20"
                     >
-                      Next: Portfolio & Skills →
-                    </motion.button>
+                      Next: Portfolio & Links →
+                    </EmotionButton>
                   </div>
                 </motion.div>
               )}
 
-              {/* STEP 2: PORTFOLIO & SKILLS */}
+              {/* STEP 2 */}
               {appStep === 2 && (
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   className="space-y-4"
                 >
-                  <h4 className="text-xs font-semibold text-cyan-400 uppercase tracking-wider font-mono">
+                  <h4 className="text-xs font-mono font-semibold text-[#9047ff] uppercase tracking-wider">
                     Step 2: Portfolio & Code Repositories
                   </h4>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">PORTFOLIO / BEHANCE / WEBSITE</label>
+                    <label className="block text-xs font-mono font-semibold text-[var(--foreground)]/70 mb-1.5">PORTFOLIO / BEHANCE / WEBSITE</label>
                     <input
                       type="url"
                       value={appData.portfolio}
                       onChange={(e) => setAppData({ ...appData, portfolio: e.target.value })}
                       placeholder="https://rohan.design or https://rohan.dev"
-                      className="w-full bg-slate-950/90 border border-white/10 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-cyan-400 font-mono"
+                      className="w-full bg-[var(--background)]/80 border border-[#9047ff]/20 rounded-xl p-3 text-sm text-[var(--foreground)] focus:outline-none focus:border-[#9047ff] font-mono"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">GITHUB / LINKEDIN PROFILE *</label>
+                    <label className="block text-xs font-mono font-semibold text-[var(--foreground)]/70 mb-1.5">GITHUB / LINKEDIN PROFILE *</label>
                     <input
                       type="url"
                       required
                       value={appData.github}
                       onChange={(e) => setAppData({ ...appData, github: e.target.value })}
                       placeholder="https://github.com/rohan or https://linkedin.com/in/rohan"
-                      className="w-full bg-slate-950/90 border border-white/10 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-cyan-400 font-mono"
+                      className="w-full bg-[var(--background)]/80 border border-[#9047ff]/20 rounded-xl p-3 text-sm text-[var(--foreground)] focus:outline-none focus:border-[#9047ff] font-mono"
                     />
                   </div>
-                  <div className="flex justify-between pt-2">
+                  <div className="flex justify-between pt-3">
                     <button
                       type="button"
                       onClick={() => setAppStep(1)}
-                      className="px-5 py-2.5 rounded-full border border-white/10 text-xs font-mono text-slate-400 hover:text-white"
+                      className="px-5 py-2.5 rounded-full border border-[#9047ff]/20 text-xs font-mono text-[var(--foreground)]/60 hover:text-[var(--foreground)]"
                     >
                       ← Back
                     </button>
-                    <motion.button
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.94 }}
+                    <EmotionButton
+                      variant="primary"
                       type="button"
                       onClick={() => {
                         audioEngine.playClick();
                         setAppStep(3);
                       }}
-                      className="px-7 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-amber-400 text-slate-950 font-bold text-xs font-mono uppercase tracking-wider shadow-lg shadow-cyan-500/20"
                     >
                       Next: Final Verification →
-                    </motion.button>
+                    </EmotionButton>
                   </div>
                 </motion.div>
               )}
 
-              {/* STEP 3: FINAL NOTES & TRANSMISSION */}
+              {/* STEP 3 */}
               {appStep === 3 && (
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   className="space-y-4"
                 >
-                  <h4 className="text-xs font-semibold text-cyan-400 uppercase tracking-wider font-mono">
+                  <h4 className="text-xs font-mono font-semibold text-[#9047ff] uppercase tracking-wider">
                     Step 3: Why AuMDS & Notable Achievements
                   </h4>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">MESSAGE / COVER TELEMETRY</label>
+                    <label className="block text-xs font-mono font-semibold text-[var(--foreground)]/70 mb-1.5">MESSAGE / COVER NOTE</label>
                     <textarea
                       rows={3}
                       value={appData.notes}
                       onChange={(e) => setAppData({ ...appData, notes: e.target.value })}
-                      placeholder="Tell us about the most ambitious project you have shipped or what excites you about the AuMDS Universe..."
-                      className="w-full bg-slate-950/90 border border-white/10 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-cyan-400 resize-none font-normal"
+                      placeholder="Tell us about the most ambitious project you have shipped or what excites you about AuMDS..."
+                      className="w-full bg-[var(--background)]/80 border border-[#9047ff]/20 rounded-xl p-3 text-sm text-[var(--foreground)] focus:outline-none focus:border-[#9047ff] resize-none font-normal"
                     />
                   </div>
-                  <div className="flex justify-between pt-2">
+                  <div className="flex justify-between pt-3">
                     <button
                       type="button"
                       onClick={() => setAppStep(2)}
-                      className="px-5 py-2.5 rounded-full border border-white/10 text-xs font-mono text-slate-400 hover:text-white"
+                      className="px-5 py-2.5 rounded-full border border-[#9047ff]/20 text-xs font-mono text-[var(--foreground)]/60 hover:text-[var(--foreground)]"
                     >
                       ← Back
                     </button>
-                    <motion.button
-                      whileHover={{ scale: 1.06, y: -2, transition: { type: 'spring', stiffness: 450, damping: 12 } }}
-                      whileTap={{ scale: 0.92 }}
+                    <EmotionButton
+                      variant="primary"
                       type="submit"
-                      className="px-8 py-3.5 rounded-full bg-gradient-to-r from-cyan-400 via-sky-400 to-amber-400 text-slate-950 font-extrabold text-xs font-mono uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-cyan-500/30"
                     >
-                      <Send className="w-4 h-4" />
                       Transmit Application
-                    </motion.button>
+                    </EmotionButton>
                   </div>
                 </motion.div>
               )}
@@ -410,14 +402,14 @@ export const CareersPage: React.FC = () => {
               animate={{ scale: 1, opacity: 1 }}
               className="py-10 text-center space-y-4"
             >
-              <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-400 flex items-center justify-center mx-auto text-emerald-400 shadow-lg">
+              <div className="w-16 h-16 rounded-full bg-[#9047ff]/20 border border-[#9047ff] flex items-center justify-center mx-auto text-[#9047ff] shadow-lg">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
-              <h4 className="text-2xl font-bold text-white font-display">
-                Candidate Profile Encrypted & Dispatched
+              <h4 className="text-2xl font-serif italic font-semibold text-[var(--foreground)]">
+                Application Transmitted Successfully
               </h4>
-              <p className="text-slate-300 text-sm max-w-md mx-auto leading-relaxed">
-                Thank you, <span className="text-cyan-400 font-semibold">{appData.name}</span>. The AuMDS Talent Guild has received your telemetry for <span className="text-amber-400">{appData.role}</span>. We will review your artifacts within 48 hours.
+              <p className="text-[var(--foreground)]/70 text-sm max-w-md mx-auto leading-relaxed font-sans">
+                Thank you, <span className="text-[#9047ff] font-semibold">{appData.name}</span>. The AuMDS Talent Guild has received your details for <span className="text-[#9047ff] font-semibold">{appData.role}</span>. We will review your artifacts within 48 hours.
               </p>
             </motion.div>
           )}

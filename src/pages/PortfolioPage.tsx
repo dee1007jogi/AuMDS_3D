@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { SplitTextHeading } from '../components/SplitTextHeading';
 import { SectionScrollAnimation } from '../components/SectionScrollAnimation';
 import { ElasticTiltCard } from '../components/ElasticTiltCard';
-import { ArrowUpRight, Sparkles, FolderGit2, Star, CheckCircle } from 'lucide-react';
+import { ArrowUpRight, FolderGit2, Star } from 'lucide-react';
 import { audioEngine } from '../components/AudioEngine';
 import { useNavigate } from 'react-router-dom';
 
@@ -68,58 +68,58 @@ export const PortfolioPage: React.FC = () => {
   const filtered = filter === 'all' ? CASE_STUDIES : CASE_STUDIES.filter((c) => c.category === filter);
 
   return (
-    <div className="relative pt-32 pb-24 z-10 font-sans space-y-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+    <div className="relative pt-32 pb-24 z-10 font-sans text-[var(--foreground)] space-y-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
         
         {/* SECTION 1: PORTFOLIO HERO */}
         <section className="text-center max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/40 bg-slate-900/70 backdrop-blur-xl w-fit mb-6 shadow-2xl"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#9047ff]/30 bg-[#9047ff]/10 backdrop-blur-xl w-fit mb-6 shadow-sm"
           >
-            <FolderGit2 className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="text-xs font-mono tracking-widest text-cyan-300 uppercase font-bold">
-              CASE STUDIES & PROVEN IMPACT
+            <FolderGit2 className="w-3.5 h-3.5 text-[#9047ff]" />
+            <span className="text-xs font-mono tracking-widest text-[#9047ff] uppercase font-bold">
+              Case Studies & Proven Impact
             </span>
           </motion.div>
 
           <SplitTextHeading
             as="h1"
             text="Excellence in Production Execution"
-            className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white font-display leading-[1.06]"
+            className="text-4xl sm:text-6xl md:text-7xl font-serif italic font-normal tracking-tight leading-[1.08] text-[var(--foreground)]"
           />
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-6 text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-normal"
+            className="mt-6 text-base sm:text-lg md:text-xl text-[var(--foreground)]/70 max-w-3xl mx-auto leading-relaxed font-normal font-sans"
           >
-            Explore how Au Multidimensional Solutions has architected high-performance software, engineered brand universes, and accelerated revenue for visionary enterprises.
+            Explore how Au Multidimensional Solutions has architected high-performance software, engineered brand universes, and accelerated growth for visionary enterprises.
           </motion.p>
         </section>
 
         {/* SECTION 2: FILTER CONTROLS */}
-        <div className="flex flex-wrap gap-2.5 mb-12 border-b border-white/10 pb-4 justify-center">
+        <div className="flex flex-wrap gap-2.5 mb-12 border-b border-[#9047ff]/15 pb-6 justify-center">
           {[
             { id: 'all', label: 'All Dimensions' },
-            { id: 'software', label: 'Software & Tech' },
+            { id: 'software', label: 'Software & WebXR' },
             { id: 'brand', label: 'Brand Universe' },
             { id: 'scaling', label: 'Scaling & Growth' },
           ].map((btn) => (
             <motion.button
               key={btn.id}
-              whileHover={{ scale: 1.05, y: -2, transition: { type: 'spring', stiffness: 450, damping: 12 } }}
-              whileTap={{ scale: 0.94 }}
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => {
                 audioEngine.playClick();
                 setFilter(btn.id as any);
               }}
               className={`px-6 py-2.5 rounded-full text-xs font-mono transition-all duration-300 backdrop-blur-xl ${
                 filter === btn.id
-                  ? 'bg-gradient-to-r from-cyan-400 to-amber-400 text-slate-950 font-extrabold shadow-[0_0_20px_rgba(6,182,212,0.4)]'
-                  : 'bg-[#0A0F1D]/70 text-slate-400 border border-white/10 hover:border-cyan-500/50 hover:text-white'
+                  ? 'bg-[#9047ff] text-white font-bold shadow-[0_0_20px_rgba(144,71,255,0.4)]'
+                  : 'bg-[var(--card)]/50 text-[var(--foreground)]/70 border border-[#9047ff]/15 hover:border-[#9047ff]/40 hover:text-[var(--foreground)]'
               }`}
             >
               {btn.label}
@@ -128,12 +128,12 @@ export const PortfolioPage: React.FC = () => {
         </div>
 
         {/* SECTION 3: CASE STUDIES GRID WITH ELASTIC CARDS */}
-        <SectionScrollAnimation className="section-aura-cyan p-8 sm:p-12 rounded-3xl">
+        <SectionScrollAnimation className="p-8 sm:p-12 rounded-[2.5rem] border border-[#9047ff]/20 bg-[var(--card)]/30 backdrop-blur-xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <AnimatePresence>
-              {filtered.map((study) => (
-                <ElasticTiltCard key={study.id} glowColor="rgba(56, 189, 248, 0.35)">
-                  <div className="rounded-3xl bg-slate-900/70 border border-white/10 overflow-hidden group hover:border-cyan-500/50 transition-colors duration-300 flex flex-col justify-between h-full backdrop-blur-xl shadow-2xl">
+              {filtered.map((study, idx) => (
+                <ElasticTiltCard key={study.id} glowColor="rgba(144, 71, 255, 0.25)">
+                  <div className="rounded-[2rem] bg-[var(--card)]/60 border border-[#9047ff]/20 overflow-hidden group hover:border-[#9047ff]/50 transition-all duration-500 flex flex-col justify-between h-full backdrop-blur-xl shadow-xl">
                     {/* Media banner */}
                     <div className="relative h-64 overflow-hidden">
                       <img
@@ -141,14 +141,14 @@ export const PortfolioPage: React.FC = () => {
                         alt={study.title}
                         className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/50 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)] via-transparent to-transparent opacity-80" />
                       <div className="absolute top-4 left-4">
-                        <span className="px-3 py-1 rounded-full text-xs font-mono bg-slate-950/80 text-cyan-300 border border-cyan-500/30 font-bold">
+                        <span className="px-3 py-1 rounded-full text-xs font-mono bg-[var(--background)]/90 text-[#9047ff] border border-[#9047ff]/30 font-semibold backdrop-blur-md">
                           {study.tag}
                         </span>
                       </div>
                       <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-                        <span className="text-xs font-mono text-amber-400 bg-slate-950/90 px-3 py-1 rounded-md border border-white/10 font-bold">
+                        <span className="text-xs font-mono text-[#9047ff] bg-[var(--background)]/90 px-3 py-1 rounded-md border border-[#9047ff]/20 font-bold backdrop-blur-md">
                           {study.metric}
                         </span>
                       </div>
@@ -157,22 +157,25 @@ export const PortfolioPage: React.FC = () => {
                     {/* Text Body */}
                     <div className="p-7 sm:p-8 flex-1 flex flex-col justify-between">
                       <div>
-                        <span className="text-xs font-mono text-cyan-400 uppercase font-bold">{study.client}</span>
-                        <h3 className="text-2xl font-bold text-white mt-1 mb-3 font-display group-hover:text-cyan-200 transition-colors">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs font-mono text-[#9047ff] uppercase font-bold tracking-widest">{study.client}</span>
+                          <span className="text-xs font-mono text-[var(--foreground)]/40">(0{idx + 1})</span>
+                        </div>
+                        <h3 className="text-2xl font-serif italic font-semibold text-[var(--foreground)] mb-3 group-hover:text-[#9047ff] transition-colors">
                           {study.title}
                         </h3>
-                        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                        <p className="text-xs sm:text-sm text-[var(--foreground)]/70 leading-relaxed font-normal font-sans">
                           {study.description}
                         </p>
                       </div>
 
-                      <div className="mt-6 pt-6 border-t border-white/10 flex justify-between items-center">
-                        <span className="text-xs font-mono text-slate-400">STATUS // DEPLOYED & LIVE</span>
+                      <div className="mt-6 pt-6 border-t border-[#9047ff]/15 flex justify-between items-center">
+                        <span className="text-xs font-mono text-[var(--foreground)]/50">STATUS // DEPLOYED & LIVE</span>
                         <motion.button
-                          whileHover={{ scale: 1.15, rotate: 45 }}
+                          whileHover={{ scale: 1.12, rotate: 45 }}
                           whileTap={{ scale: 0.9 }}
                           onClick={() => navigate('/contact')}
-                          className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 group-hover:bg-cyan-400 group-hover:text-slate-950 transition-colors shadow-md"
+                          className="w-10 h-10 rounded-full bg-[#9047ff]/15 border border-[#9047ff]/30 flex items-center justify-center text-[#9047ff] group-hover:bg-[#9047ff] group-hover:text-white transition-all shadow-sm"
                         >
                           <ArrowUpRight className="w-4 h-4" />
                         </motion.button>
@@ -186,49 +189,49 @@ export const PortfolioPage: React.FC = () => {
         </SectionScrollAnimation>
 
         {/* SECTION 4: TESTIMONIALS & PROOF */}
-        <SectionScrollAnimation className="section-aura-amber p-8 sm:p-14 rounded-3xl">
+        <SectionScrollAnimation className="p-8 sm:p-14 rounded-[2.5rem] border border-[#9047ff]/20 bg-[var(--card)]/40 backdrop-blur-xl">
           <div className="max-w-2xl mb-12">
-            <span className="text-xs font-mono text-amber-400 uppercase font-bold">CLIENT EXPERIENCES</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-2 font-display">
+            <span className="text-xs font-mono text-[#9047ff] uppercase font-bold tracking-widest">Client Endorsements</span>
+            <h2 className="text-3xl sm:text-5xl font-serif italic font-normal text-[var(--foreground)] mt-2">
               Endorsed by Fast-Growing Ventures
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <ElasticTiltCard>
-              <div className="p-7 rounded-3xl bg-slate-950/80 border border-white/10 h-full flex flex-col justify-between shadow-xl">
+            <ElasticTiltCard glowColor="rgba(144, 71, 255, 0.2)">
+              <div className="p-8 rounded-[2rem] bg-[var(--card)]/60 border border-[#9047ff]/20 h-full flex flex-col justify-between shadow-lg backdrop-blur-xl">
                 <div>
-                  <div className="flex text-amber-400 mb-3 gap-1">
+                  <div className="flex text-[#9047ff] mb-4 gap-1">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400" />
+                      <Star key={i} className="w-4 h-4 fill-[#9047ff]" />
                     ))}
                   </div>
-                  <p className="text-sm text-slate-300 leading-relaxed italic mb-6 font-normal">
+                  <p className="text-sm text-[var(--foreground)]/80 leading-relaxed font-serif italic mb-6 font-normal">
                     "AuMDS redesigned our entire digital architecture and brand strategy within weeks. The speed, attention to visual detail, and rock-solid engineering exceeded all expectations."
                   </p>
                 </div>
                 <div>
-                  <span className="text-sm font-bold text-white block">Aakash Mehta</span>
-                  <span className="text-xs font-mono text-cyan-400">Founder, FinVenture Labs</span>
+                  <span className="text-sm font-semibold text-[var(--foreground)] block">Aakash Mehta</span>
+                  <span className="text-xs font-mono text-[#9047ff]">Founder, FinVenture Labs</span>
                 </div>
               </div>
             </ElasticTiltCard>
 
-            <ElasticTiltCard>
-              <div className="p-7 rounded-3xl bg-slate-950/80 border border-white/10 h-full flex flex-col justify-between shadow-xl">
+            <ElasticTiltCard glowColor="rgba(144, 71, 255, 0.2)">
+              <div className="p-8 rounded-[2rem] bg-[var(--card)]/60 border border-[#9047ff]/20 h-full flex flex-col justify-between shadow-lg backdrop-blur-xl">
                 <div>
-                  <div className="flex text-amber-400 mb-3 gap-1">
+                  <div className="flex text-[#9047ff] mb-4 gap-1">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400" />
+                      <Star key={i} className="w-4 h-4 fill-[#9047ff]" />
                     ))}
                   </div>
-                  <p className="text-sm text-slate-300 leading-relaxed italic mb-6 font-normal">
+                  <p className="text-sm text-[var(--foreground)]/80 leading-relaxed font-serif italic mb-6 font-normal">
                     "The TRIAD talent cohort provided us with exceptional engineers who hit the ground running on day one. AuMDS is truly building the ecosystem of the future."
                   </p>
                 </div>
                 <div>
-                  <span className="text-sm font-bold text-white block">Priya Sundaram</span>
-                  <span className="text-xs font-mono text-cyan-400">Head of Product, AuraSpatial</span>
+                  <span className="text-sm font-semibold text-[var(--foreground)] block">Priya Sundaram</span>
+                  <span className="text-xs font-mono text-[#9047ff]">Head of Product, AuraSpatial</span>
                 </div>
               </div>
             </ElasticTiltCard>

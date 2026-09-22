@@ -1,181 +1,176 @@
-import React, { useState } from 'react';
-import { ArrowUpRight, Compass, Mail, Phone, MapPin, CheckCircle2, Send, Sparkles, User, BookOpen } from 'lucide-react';
-import { audioEngine } from './AudioEngine';
+import React, { useState, useEffect } from 'react';
+import { ArrowUpRight, Copy, Check, Sparkles, CornerDownRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { EmotionButton } from './EmotionButton';
+import { audioEngine } from './AudioEngine';
 
 export const NexusFooter: React.FC = () => {
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '' });
+  const [copied, setCopied] = useState(false);
+  const [timeString, setTimeString] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email) return;
-    audioEngine.playSwoosh();
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormData({ name: '', email: '' });
-    }, 4000);
+  const email = 'contact@aumdsorg.com';
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTimeString(
+        now.toLocaleTimeString('en-US', {
+          timeZone: 'Asia/Kolkata',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true,
+        })
+      );
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleCopy = () => {
+    audioEngine.playChime();
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
   };
 
   return (
-    <footer id="contact" className="relative z-10 bg-[#040814] border-t border-slate-900 pt-24 pb-12 text-slate-400 font-sans">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-slate-900">
-          
-          {/* Mission Capsule */}
-          <div className="lg:col-span-5 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center gap-3.5 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FFF0A0] via-[#F5B722] to-[#92400E] p-[1px] shadow-[0_0_15px_rgba(245,183,34,0.3)] shrink-0 overflow-hidden bg-[#030712] flex items-center justify-center p-1">
-                  <img src="/company-logo.png" alt="AuMDS Official Logo" className="w-full h-full object-contain" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                    <span className="text-xs font-mono text-amber-400 tracking-widest uppercase font-bold">
-                      Au Multidimensional Solutions Pvt. Ltd.
-                    </span>
-                  </div>
-                  <span className="text-[10px] font-mono text-slate-500">
-                    AU 79 • 24K MULTIDIMENSIONAL ARCHITECTURE
-                  </span>
-                </div>
-              </div>
-              <h3 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight font-display">
-                Co-Creating the Universe of Brands.
-              </h3>
-              <p className="mt-4 text-sm text-slate-300 leading-relaxed max-w-md font-normal">
-                Led by Founder & CEO <strong>Shivaprasad Aum</strong>. Bridging deep-tech engineering, algorithmic growth architectures, institutional corporate governance, and talent incubation from Bengaluru to the global matrix.
-              </p>
-            </div>
-
-            <div className="mt-8 pt-6 border-t border-slate-900 space-y-2">
-              <div className="flex items-center gap-3">
-                <Compass className="w-4 h-4 text-cyan-400 shrink-0" />
-                <span className="text-xs font-mono text-slate-400 font-semibold">
-                  GEO COORDINATE: 12.9249° N, 77.4797° E // BENGALURU
-                </span>
-              </div>
-              <p className="text-[11px] font-mono text-slate-500">
-                CIN: U85499KA2024PTC185494 | Ministry of Corporate Affairs, Gov of India
-              </p>
-            </div>
+    <footer className="relative z-10 border-t border-current/10 pt-24 pb-12 px-6 sm:px-12 max-w-[1440px] mx-auto font-sans">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 pb-20 border-b border-current/10">
+        {/* Left Column: Massive Editorial Headline */}
+        <div className="lg:col-span-7 space-y-8">
+          <div>
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#9047ff] text-white text-[11px] font-mono tracking-wider uppercase font-bold shadow-md shadow-purple-500/20">
+              <Sparkles className="w-3 h-3 text-amber-300 animate-pulse" />
+              New Partnerships
+            </span>
           </div>
 
-          {/* Quick Hub Links */}
-          <div className="lg:col-span-3 space-y-4">
-            <span className="text-xs font-mono text-slate-200 tracking-wider uppercase font-bold">
-              Operational Matrix
-            </span>
-            <ul className="space-y-2 text-sm">
-              {[
-                { name: 'Home Viewport', path: '/' },
-                { name: 'Founder & CEO (Shivaprasad Aum)', path: '/founder' },
-                { name: 'Services Constellation', path: '/services' },
-                { name: 'About AuMDS & Origin', path: '/about' },
-                { name: 'Careers & Talent Orbit', path: '/careers' },
-                { name: 'TRIAD & Ecosystem', path: '/ecosystem' },
-                { name: 'Case Studies Portfolio', path: '/portfolio' },
-                { name: 'Contact & Location Crystal', path: '/contact' },
-              ].map((link) => (
-                <li key={link.name}>
-                  <Link
-                    to={link.path}
-                    onClick={() => {
-                      audioEngine.playClick();
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    className="hover:text-cyan-400 transition-colors flex items-center justify-between group py-1 text-xs font-mono text-slate-400 hover:translate-x-1 duration-200"
-                  >
-                    <span>{link.name}</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <h2 className="font-emotion-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light leading-[0.88] tracking-tight">
+            Let's talk <br />
+            <em className="italic font-normal text-[#9047ff]">About your</em> <br />
+            <span className="inline-block text-[#9047ff] mr-2 font-mono">↪</span>
+            Next Big Thing
+          </h2>
 
-          {/* Direct Coordinate Channel & Uplink Form */}
-          <div className="lg:col-span-4 space-y-4">
-            <span className="text-xs font-mono text-slate-200 tracking-wider uppercase font-bold">
-              Establish Uplink
-            </span>
+          <div className="pt-4 flex flex-wrap items-center gap-4">
+            {/* Click to Copy Email Pill Button */}
+            <button
+              onClick={handleCopy}
+              onMouseEnter={() => audioEngine.playHover()}
+              className="group relative inline-flex items-center gap-3 px-6 py-4 rounded-full border border-current/20 hover:border-[#9047ff] bg-current/5 hover:bg-[#9047ff] hover:text-white transition-all duration-300 font-mono text-sm sm:text-base cursor-pointer shadow-sm"
+              aria-label="Copy contact email"
+            >
+              <span className="font-semibold tracking-wider">{email}</span>
+              <span className="w-6 h-6 rounded-full bg-current/10 flex items-center justify-center text-inherit">
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              </span>
+              <span className="text-[10px] uppercase tracking-widest opacity-60 group-hover:opacity-90">
+                {copied ? 'Copied!' : 'Click to copy'}
+              </span>
+            </button>
 
-            <div className="space-y-2.5 text-sm">
-              <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
-                <span className="text-slate-300 text-xs leading-relaxed">
-                  #769, 2nd Floor, Prema Enclave, 1st Main, Outer Ring Rd, Kengeri Satellite Town, Bengaluru, KA 560060
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-cyan-400 shrink-0" />
-                <a href="mailto:contact@aumdsorg.com" className="hover:text-white transition-colors text-xs font-mono">
-                  contact@aumdsorg.com
-                </a>
-              </div>
-              <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
-                <a href="tel:+917019134445" className="hover:text-white transition-colors text-xs font-mono">
-                  +91 7019134445
-                </a>
-              </div>
-            </div>
-
-            {/* Quick Contact Box */}
-            <div className="mt-4 p-5 rounded-2xl bg-[#0A2540]/60 border border-slate-800 shadow-xl backdrop-blur-xl">
-              {formSubmitted ? (
-                <div className="py-4 text-center">
-                  <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto mb-2 animate-bounce" />
-                  <span className="text-xs font-mono text-emerald-400 font-bold">
-                    UPLINK TRANSMITTED SUCCESSFULLY
-                  </span>
-                  <p className="text-[11px] text-slate-400 mt-1">Our team will establish connection shortly.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-3">
-                  <input
-                    type="text"
-                    placeholder="Your Name / Organization"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-950/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
-                  />
-                  <input
-                    type="email"
-                    placeholder="contact@enterprise.com"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-950/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 font-mono"
-                  />
-                  <motion.button
-                    whileHover={{ scale: 1.04, y: -1, transition: { type: 'spring', stiffness: 450, damping: 12 } }}
-                    whileTap={{ scale: 0.94 }}
-                    type="submit"
-                    className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-amber-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-cyan-500/20 font-mono uppercase tracking-wider"
-                  >
-                    <Send className="w-3.5 h-3.5" />
-                    Transmit Quick Uplink
-                  </motion.button>
-                </form>
-              )}
-            </div>
+            <a
+              href="tel:+917019134445"
+              className="font-emotion-mono text-xs uppercase tracking-wider opacity-70 hover:opacity-100 hover:text-[#9047ff] transition-colors py-2 px-3"
+            >
+              +91 70191 34445 ↗
+            </a>
           </div>
         </div>
 
-        {/* Legal & System Timestamp */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
-          <p>© {new Date().getFullYear()} Shivaprasad Aum / Au Multidimensional Solutions Pvt Ltd. All dimensions reserved.</p>
-          <div className="flex items-center gap-6">
-            <Link to="/legal" className="hover:text-cyan-400 transition-colors">Privacy Protocol</Link>
-            <Link to="/legal" className="hover:text-cyan-400 transition-colors">Terms of Dimension</Link>
-            <Link to="/founder" className="hover:text-amber-400 transition-colors">Founder Bio & Books</Link>
-            <span className="text-emerald-500/80 font-bold hidden sm:inline">SYS_STATUS: 100% NOMINAL</span>
+        {/* Right Column: Indexed Navigation Lists */}
+        <div className="lg:col-span-5 grid grid-cols-2 gap-8 font-sans">
+          {/* Section 01: Work & Solutions */}
+          <div className="space-y-4">
+            <span className="font-emotion-mono text-xs text-[#9047ff] uppercase tracking-widest font-semibold block">
+              [01] Ecosystem
+            </span>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link to="/portfolio" className="opacity-75 hover:opacity-100 hover:text-[#9047ff] transition-colors">
+                  Selected Work
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="opacity-75 hover:opacity-100 hover:text-[#9047ff] transition-colors">
+                  Software Solutions
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="opacity-75 hover:opacity-100 hover:text-[#9047ff] transition-colors">
+                  Brand Systems
+                </Link>
+              </li>
+              <li>
+                <Link to="/ecosystem" className="opacity-75 hover:opacity-100 hover:text-[#9047ff] transition-colors">
+                  TRIAD Accelerator
+                </Link>
+              </li>
+              <li>
+                <Link to="/ecosystem" className="opacity-75 hover:opacity-100 hover:text-[#9047ff] transition-colors">
+                  SatChai Founder Guild
+                </Link>
+              </li>
+            </ul>
           </div>
+
+          {/* Section 02: Studio & Identity */}
+          <div className="space-y-4">
+            <span className="font-emotion-mono text-xs text-[#9047ff] uppercase tracking-widest font-semibold block">
+              [02] Studio
+            </span>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link to="/about" className="opacity-75 hover:opacity-100 hover:text-[#9047ff] transition-colors">
+                  About AuMDS
+                </Link>
+              </li>
+              <li>
+                <Link to="/founder" className="opacity-75 hover:opacity-100 hover:text-[#9047ff] transition-colors">
+                  Leadership
+                </Link>
+              </li>
+              <li>
+                <Link to="/careers" className="opacity-75 hover:opacity-100 hover:text-[#9047ff] transition-colors">
+                  Careers &amp; Openings
+                </Link>
+              </li>
+              <li>
+                <Link to="/legal" className="opacity-75 hover:opacity-100 hover:text-[#9047ff] transition-colors">
+                  Statutory &amp; MCA
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="opacity-75 hover:opacity-100 hover:text-[#9047ff] transition-colors">
+                  Contact Studio
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Bar: Realtime City Clock + Legal */}
+      <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-emotion-mono text-xs opacity-60">
+        <div className="flex items-center gap-3">
+          <span>Bengaluru Node 12.92° N</span>
+          <span>•</span>
+          <span className="text-[#9047ff] font-semibold">{timeString || 'IST'}</span>
+        </div>
+
+        <div>
+          <span>© 2026 Au Multidimensional Solutions Pvt. Ltd. All rights reserved.</span>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <Link to="/legal" className="hover:text-[#9047ff] transition-colors">
+            Privacy Policy
+          </Link>
+          <Link to="/legal" className="hover:text-[#9047ff] transition-colors">
+            Terms of Service
+          </Link>
         </div>
       </div>
     </footer>
