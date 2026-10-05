@@ -4,35 +4,8 @@
 
 @layer base {
   :root {
-    --primary: #9047ff;
-    --primary-rgb: 144, 71, 255;
-    --primary-active: #7114ff;
-    --background: #f5efff;
-    --background-rgb: 245, 239, 255;
-    --foreground: #2a1647;
-    --foreground-rgb: 42, 22, 71;
-    --foreground-muted: #64698b;
-    --border: #e2e4f0;
-    --card: #ffffff;
-    --muted: #f1f2f9;
-
-    --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-    --font-mono: 'IBM Plex Mono', monospace;
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  }
-
-  [data-theme='dark'] {
-    --primary: #9047ff;
-    --primary-rgb: 144, 71, 255;
-    --primary-active: #7114ff;
-    --background: #121212;
-    --background-rgb: 18, 18, 18;
-    --foreground: #ffffff;
-    --foreground-rgb: 255, 255, 255;
-    --foreground-muted: #a3a6c1;
-    --border: #30343f;
-    --card: #181818;
-    --muted: #25282e;
+    --font-poppins: 'Poppins', sans-serif;
+    --font-jetbrains: 'JetBrains Mono', monospace;
   }
 
   html.lenis, html.lenis body {
@@ -56,103 +29,20 @@
   }
 
   body {
-    font-family: var(--font-sans);
-    background-color: var(--background);
-    color: var(--foreground);
+    font-family: var(--font-poppins);
+    background-color: #030712;
+    color: #f8fafc;
     overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  h1, h2, h3, h4, h5, h6, .font-serif-display {
-    font-family: var(--font-serif);
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: var(--font-poppins);
+    font-weight: 700;
   }
 
-  code, pre, .font-mono, [data-mono] {
-    font-family: var(--font-mono);
+  code, pre, .font-mono {
+    font-family: var(--font-jetbrains);
   }
-}
-
-/* Emotion Agency Typography Utilities */
-.font-emotion-serif {
-  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  font-weight: 300;
-  line-height: 0.85;
-}
-
-.font-emotion-mono {
-  font-family: 'IBM Plex Mono', monospace;
-  font-feature-settings: "tnum";
-}
-
-.font-emotion-sans {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-/* Emotion Agency Fluid Pill Button Double-Text Slide */
-.emotion-btn-text-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 1.15em;
-  overflow: hidden;
-  position: relative;
-}
-
-.emotion-btn-sub {
-  display: block;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.group:hover .emotion-btn-sub-1,
-.emotion-btn:hover .emotion-btn-sub-1 {
-  transform: translateY(-120%);
-}
-
-.group:hover .emotion-btn-sub-2,
-.emotion-btn:hover .emotion-btn-sub-2 {
-  transform: translateY(-100%);
-}
-
-/* Sound Visualizer Waveform Animation */
-@keyframes soundWave1 {
-  0%, 100% { height: 4px; }
-  50% { height: 16px; }
-}
-
-@keyframes soundWave2 {
-  0%, 100% { height: 14px; }
-  50% { height: 6px; }
-}
-
-@keyframes soundWave3 {
-  0%, 100% { height: 8px; }
-  50% { height: 18px; }
-}
-
-@keyframes soundWave4 {
-  0%, 100% { height: 16px; }
-  50% { height: 5px; }
-}
-
-.animate-sound-1 { animation: soundWave1 0.8s ease-in-out infinite; }
-.animate-sound-2 { animation: soundWave2 0.7s ease-in-out infinite; }
-.animate-sound-3 { animation: soundWave3 0.9s ease-in-out infinite; }
-.animate-sound-4 { animation: soundWave4 0.75s ease-in-out infinite; }
-
-/* Emotion Agency Floating AI Orb Gradient */
-@keyframes aiOrbMorph {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  50% {
-    transform: rotate(180deg) scale(1.08);
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
-  }
-}
-
-.animate-ai-orb {
-  animation: aiOrbMorph 10s ease-in-out infinite alternate;
 }
 
 /* Custom Sleek Scrollbar */
@@ -208,82 +98,50 @@
   border-radius: 2rem;
 }
 
-/* 🌌 Dark Obsidian Glassmorphism Section */
-.dark-glassmorphism {
-  position: relative;
-  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(14, 165, 233, 0.12) 0%, transparent 70%),
-              radial-gradient(ellipse 60% 40% at 85% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 60%),
-              linear-gradient(145deg, rgba(8, 14, 29, 0.88) 0%, rgba(3, 7, 18, 0.96) 100%);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  color: #f8fafc;
-}
+/* ==========================================================================
+   SECTION BOX AMBIENT LIGHT AURA VARIATIONS
+   --------------------------------------------------------------------------
+   These classes style the visual backdrop of SectionScrollAnimation boxes.
+   Each preset combines:
+   1. A top-centered radial gradient simulating overhead atmospheric lighting.
+   2. A vertical dark gradient creating depth and grounding.
+   3. A soft semi-translucent color border matching the theme.
+   4. An ambient drop shadow plus an inset top rim highlight for glass realism.
+   ========================================================================== */
 
-/* 🌸 Luminescent Light-White Pastel Glassmorphism Section */
-.light-pastel-glass {
-  position: relative;
-  background: radial-gradient(ellipse 80% 50% at 20% 0%, rgba(224, 231, 255, 0.75) 0%, transparent 50%),
-              radial-gradient(ellipse 70% 50% at 85% 100%, rgba(254, 240, 218, 0.7) 0%, transparent 55%),
-              radial-gradient(ellipse 60% 40% at 50% 50%, rgba(236, 253, 245, 0.5) 0%, transparent 60%),
-              linear-gradient(145deg, rgba(255, 255, 255, 0.97) 0%, rgba(247, 249, 254, 0.95) 50%, rgba(239, 245, 255, 0.97) 100%);
-  backdrop-filter: blur(36px);
-  -webkit-backdrop-filter: blur(36px);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 30px 90px -15px rgba(15, 23, 42, 0.16), 0 0 50px rgba(224, 231, 255, 0.45), inset 0 2px 4px rgba(255, 255, 255, 1);
-  color: #0f172a;
-}
-
-/* Layered floating parallax orb animations */
-@keyframes floatLayerSlow {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg) scale(1);
-  }
-  50% {
-    transform: translateY(-16px) rotate(3deg) scale(1.04);
-  }
-}
-
-@keyframes floatLayerInverse {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg) scale(1);
-  }
-  50% {
-    transform: translateY(14px) rotate(-3deg) scale(0.97);
-  }
-}
-
-.animate-float-layer-1 {
-  animation: floatLayerSlow 9s ease-in-out infinite;
-}
-
-.animate-float-layer-2 {
-  animation: floatLayerInverse 11s ease-in-out infinite;
-}
-
-/* Section Ambient Light Aura Variations */
+/* Cyan Aura: Futuristic, high-tech, digital innovation sections */
 .section-aura-cyan {
   position: relative;
+  /* Top-down atmospheric cyan radial glow blending into dark obsidian slate */
   background: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.12) 0%, transparent 65%),
               linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(3, 7, 18, 0.7) 100%);
+  /* Subtle cyan border border glow */
   border: 1px solid rgba(56, 189, 248, 0.15);
+  /* Deep elevation shadow + crisp top rim specular highlight */
   box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(56, 189, 248, 0.2);
 }
 
+/* Amber Aura: Warm gold, executive, prestigious milestone and values sections */
 .section-aura-amber {
   position: relative;
+  /* Top-down warm amber radial glow */
   background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.10) 0%, transparent 65%),
               linear-gradient(180deg, rgba(26, 20, 16, 0.5) 0%, rgba(3, 7, 18, 0.7) 100%);
+  /* Warm amber rim line */
   border: 1px solid rgba(245, 158, 11, 0.15);
+  /* Deep shadow with subtle warm rim reflection */
   box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(245, 158, 11, 0.2);
 }
 
+/* Indigo Aura: Deep space, corporate strategy, application orbit sections */
 .section-aura-indigo {
   position: relative;
+  /* Top-down cosmic indigo radial illumination */
   background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 65%),
               linear-gradient(180deg, rgba(20, 24, 46, 0.5) 0%, rgba(3, 7, 18, 0.7) 100%);
+  /* Deep indigo border border */
   border: 1px solid rgba(99, 102, 241, 0.15);
+  /* Rich shadow + upper glass reflection */
   box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(99, 102, 241, 0.2);
 }
 

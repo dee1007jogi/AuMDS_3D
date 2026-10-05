@@ -1,3 +1,23 @@
+/**
+ * =========================================================================================
+ * PAGE: LegalPage ("Institutional Integrity & Protocols")
+ * =========================================================================================
+ * 
+ * PURPOSE:
+ * Serves as the statutory, regulatory, and corporate compliance hub of AuMDS.
+ * It articulates privacy protocols, intellectual property terms, MCA governance filings,
+ * and incubator/ecosystem charters in an interactive, searchable, and filterable interface.
+ * 
+ * SECTION BOX ARCHITECTURE:
+ * - SECTION 1: Page Header & Hero (Statutory Repository badge + SplitTextHeading)
+ * - SECTION 2: Search & Filter Toolbar (Category pills + real-time search input)
+ * - SECTION 3: Primary Section Box (<SectionScrollAnimation className="section-aura-cyan">)
+ *     - Wrapped in '.section-aura-cyan' for subtle futuristic atmospheric cyan lighting.
+ *     - Houses interactive accordion cards built with <ElasticTiltCard> and animated
+ *       collapsible content (<AnimatePresence>).
+ * =========================================================================================
+ */
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SplitTextHeading } from '../components/SplitTextHeading';
@@ -152,7 +172,17 @@ export const LegalPage: React.FC = () => {
           </div>
         </div>
 
-        {/* SECTION 3: ACCORDION WITH SECTION AURA */}
+        {/* ---------------------------------------------------------------------------------
+            SECTION 3: LEGAL ACCORDION SECTION BOX
+            ---------------------------------------------------------------------------------
+            - Wrapper: <SectionScrollAnimation> triggers smooth viewport entrance and subtle
+              scroll parallax scaling.
+            - Visual Theme: '.section-aura-cyan' applies ambient overhead cyan atmospheric lighting,
+              semi-transparent borders, and a specular top highlight.
+            - Cards: Each legal covenant is wrapped in an <ElasticTiltCard> that tilts on mouse hover
+              with an interactive cyan glow (rgba(56, 189, 248, 0.25)).
+            - Accordion: Clickable expand/collapse header with sound feedback via audioEngine.playClick().
+            --------------------------------------------------------------------------------- */}
         <SectionScrollAnimation className="section-aura-cyan p-8 sm:p-10 rounded-3xl space-y-4">
           {filtered.map((item) => {
             const isExpanded = expandedId === item.id;

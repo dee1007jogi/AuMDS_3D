@@ -1,3 +1,25 @@
+/**
+ * =========================================================================================
+ * PAGE: FounderPage ("Founder & Managing Director Dossier // Pavan Kumar R")
+ * =========================================================================================
+ * 
+ * PURPOSE:
+ * Institutional portfolio and comprehensive dossier for Pavan Kumar R, Founder & Managing
+ * Director of Au Multidimensional Solutions Pvt Ltd.
+ * 
+ * SECTION BOX ARCHITECTURE (9 Core Section Boxes):
+ * - SECTION 1: Founder Hero Profile (Portrait, title, credentials, leadership badges, quick actions)
+ * - SECTION 2: Brand & Promotional Portfolios Showcase (<SectionScrollAnimation className="section-aura-amber">)
+ * - SECTION 3: Executive Summary & Philosophy (<SectionScrollAnimation className="section-aura-cyan">)
+ * - SECTION 4: Academic Foundation & Research Matrix (<SectionScrollAnimation className="section-aura-indigo">)
+ * - SECTION 5: Professional Journey Timeline (<SectionScrollAnimation className="section-aura-amber">)
+ * - SECTION 6: Comprehensive Deep-Tech Skill Matrix (<SectionScrollAnimation className="section-aura-cyan">)
+ * - SECTION 7: Key Achievements, Honors & Certifications (<SectionScrollAnimation className="section-aura-indigo">)
+ * - SECTION 8: Interactive Direct Contact Hub (<SectionScrollAnimation className="section-aura-amber">)
+ * - SECTION 9: Institutional Compliance & Statutory Coordinates (<SectionScrollAnimation className="section-aura-cyan">)
+ * =========================================================================================
+ */
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { SplitTextHeading } from '../components/SplitTextHeading';
@@ -185,7 +207,12 @@ export const FounderPage: React.FC = () => {
           </div>
         </section>
 
-        {/* SECTION 2: BRAND & PROMOTIONAL PORTFOLIOS CAROUSEL */}
+        {/* ---------------------------------------------------------------------------------
+            SECTION 2: BRAND & PROMOTIONAL PORTFOLIOS CAROUSEL SECTION BOX
+            - Features: 3D interactive showcase cards displaying brand identities, packaging,
+              and design systems.
+            - Theme: '.section-aura-amber' for warm gold specular lighting.
+            --------------------------------------------------------------------------------- */}
         <SectionScrollAnimation className="section-aura-amber p-8 sm:p-12 rounded-3xl">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div>
@@ -225,7 +252,12 @@ export const FounderPage: React.FC = () => {
           </div>
         </SectionScrollAnimation>
 
-        {/* SECTION 3: EXECUTIVE SUMMARY / ABOUT ME */}
+        {/* ---------------------------------------------------------------------------------
+            SECTION 3: EXECUTIVE SUMMARY & STRATEGIC PHILOSOPHY SECTION BOX
+            - Features: Founder leadership thesis integrating quantitative engineering with
+              public policy and institutional governance.
+            - Theme: '.section-aura-cyan' for modern digital clarity.
+            --------------------------------------------------------------------------------- */}
         <SectionScrollAnimation className="section-aura-cyan p-8 sm:p-12 rounded-3xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             <div className="lg:col-span-3 flex lg:flex-col items-start lg:items-end justify-between border-b lg:border-b-0 lg:border-r border-white/10 pb-6 lg:pb-0 lg:pr-8">
@@ -257,7 +289,12 @@ export const FounderPage: React.FC = () => {
           </div>
         </SectionScrollAnimation>
 
-        {/* SECTION 4: CORE COMPETENCIES & AREAS OF EXPERTISE */}
+        {/* ---------------------------------------------------------------------------------
+            SECTION 4: CORE COMPETENCIES & AREAS OF EXPERTISE SECTION BOX
+            - Features: Multidisciplinary capability grid covering corporate governance, public policy,
+              software automation, brand engineering, and statutory compliance.
+            - Theme: '.section-aura-indigo' for deep space corporate architecture focus.
+            --------------------------------------------------------------------------------- */}
         <SectionScrollAnimation className="section-aura-indigo p-8 sm:p-12 rounded-3xl">
           <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-6 mb-10">
             <div>
@@ -314,7 +351,12 @@ export const FounderPage: React.FC = () => {
           </div>
         </SectionScrollAnimation>
 
-        {/* SECTION 5: PROFESSIONAL EXPERIENCE & LEADERSHIP */}
+        {/* ---------------------------------------------------------------------------------
+            SECTION 5: PROFESSIONAL EXPERIENCE & LEADERSHIP SECTION BOX
+            - Features: Chronological milestone breakdown of AuMDS corporate scaling, cross-functional
+              leadership, and executive operations.
+            - Theme: '.section-aura-amber' for prestigious corporate milestone aesthetic.
+            --------------------------------------------------------------------------------- */}
         <SectionScrollAnimation className="section-aura-amber p-8 sm:p-12 rounded-3xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-3 flex lg:flex-col items-start lg:items-end justify-between border-b lg:border-b-0 lg:border-r border-white/10 pb-6 lg:pb-0 lg:pr-8">

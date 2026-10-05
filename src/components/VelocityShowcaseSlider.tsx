@@ -17,19 +17,16 @@ export interface VelocityShowcaseSliderProps {
   items: ShowcaseItem[];
   sectionTitle?: string;
   sectionSubtitle?: string;
-  theme?: 'light' | 'dark';
 }
 
 export const VelocityShowcaseSlider: React.FC<VelocityShowcaseSliderProps> = ({
   items,
   sectionTitle = "ENGINEERED INITIATIVES",
   sectionSubtitle = "Explore the multidimensional domains and incubation engines forged by AuMDS.",
-  theme = 'light',
 }) => {
   const navigate = useNavigate();
   const constraintsRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const isLight = theme === 'light';
 
   // Motion values for physical tracking
   const x = useMotionValue(0);
@@ -45,31 +42,21 @@ export const VelocityShowcaseSlider: React.FC<VelocityShowcaseSliderProps> = ({
   };
 
   return (
-    <div id="initiatives" className="w-full py-8 max-w-7xl mx-auto px-2 sm:px-6 overflow-hidden relative z-10 font-sans" aria-label="Showcase Slider">
+    <section id="initiatives" className="w-full py-24 section-ambient-amber rounded-3xl max-w-7xl mx-auto my-12 px-4 sm:px-6 lg:px-8 overflow-hidden relative z-10 border border-slate-800/80 shadow-2xl font-sans" aria-label="Showcase Slider">
       {/* Header Context */}
       <div className="max-w-7xl mx-auto mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border mb-4 shadow-sm ${
-            isLight
-              ? 'border-cyan-300 bg-cyan-100/90 text-cyan-900'
-              : 'border-cyan-500/40 bg-cyan-950/60 text-cyan-300 shadow-lg'
-          }`}>
-            <Sparkles className={`w-3.5 h-3.5 ${isLight ? 'text-amber-500' : 'text-amber-400'} animate-pulse`} />
-            <span className={`text-xs font-mono tracking-widest uppercase font-bold ${
-              isLight ? 'text-cyan-900' : 'text-cyan-300'
-            }`}>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-cyan-500/40 bg-cyan-950/60 backdrop-blur-md mb-4 shadow-lg">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+            <span className="text-xs font-mono tracking-widest text-cyan-300 uppercase font-bold">
               ECOSYSTEM SHOWCASE
             </span>
           </div>
-          <h2 className={`text-3xl md:text-5xl font-extrabold tracking-tight font-display ${
-            isLight ? 'text-slate-900' : 'text-white'
-          }`}>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight font-display">
             {sectionTitle}
           </h2>
         </div>
-        <p className={`text-sm md:text-base max-w-md font-normal leading-relaxed ${
-          isLight ? 'text-slate-600' : 'text-slate-300'
-        }`}>
+        <p className="text-slate-300 text-sm md:text-base max-w-md font-normal leading-relaxed">
           {sectionSubtitle}
         </p>
       </div>
@@ -146,6 +133,6 @@ export const VelocityShowcaseSlider: React.FC<VelocityShowcaseSliderProps> = ({
           Drag horizontally with momentum inertia
         </span>
       </div>
-    </div>
+    </section>
   );
 };

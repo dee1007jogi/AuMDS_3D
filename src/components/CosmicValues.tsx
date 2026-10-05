@@ -72,41 +72,22 @@ const VALUES: ValueNode[] = [
   },
 ];
 
-export interface CosmicValuesProps {
-  theme?: 'light' | 'dark';
-}
-
-export const CosmicValues: React.FC<CosmicValuesProps> = ({ theme = 'light' }) => {
-  const isLight = theme === 'light';
-
+export const CosmicValues: React.FC = () => {
   return (
-    <div className="relative z-20 max-w-7xl mx-auto px-2 sm:px-4 py-10">
+    <section className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div className="text-center max-w-4xl mx-auto mb-14">
-        <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold mb-3 shadow-sm ${
-          isLight
-            ? 'bg-amber-100/90 border border-amber-300 text-amber-900 shadow-[0_2px_12px_rgba(245,158,11,0.15)]'
-            : 'bg-amber-950/40 border border-amber-400/30 text-amber-300 shadow-lg shadow-amber-950/30'
-        }`}>
-          <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-950/40 border border-amber-400/30 text-amber-300 text-xs font-mono font-bold mb-3 shadow-lg shadow-amber-950/30">
+          <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
           <span>✦ OUR 8 FOUNDATIONAL CORPORATE PILLARS</span>
         </div>
         
-        {isLight ? (
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 font-display tracking-tight leading-tight">
-            The 8 Guiding Principles of AuMDS
-          </h2>
-        ) : (
-          <RockGoldText
-            as="h2"
-            className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white font-display tracking-tight leading-tight"
-          >
-            The 8 Guiding Principles of AuMDS
-          </RockGoldText>
-        )}
-
-        <p className={`mt-3 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed ${
-          isLight ? 'text-slate-600' : 'text-slate-300'
-        }`}>
+        <RockGoldText
+          as="h2"
+          className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white font-display tracking-tight leading-tight"
+        >
+          The 8 Guiding Principles of AuMDS
+        </RockGoldText>
+        <p className="mt-3 text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
           An organization that provides multidimensional solutions anchored on quality, trust, accountability, client satisfaction, and sustainability.
         </p>
       </div>
@@ -118,14 +99,10 @@ export const CosmicValues: React.FC<CosmicValuesProps> = ({ theme = 'light' }) =
           return (
             <ElasticTiltCard
               key={val.title}
-              glowColor={isLight ? 'rgba(14, 165, 233, 0.15)' : 'rgba(56, 189, 248, 0.25)'}
+              glowColor="rgba(56, 189, 248, 0.25)"
               className="h-full cursor-pointer"
             >
-              <div className={`p-6 sm:p-7 rounded-3xl border transition-all duration-300 backdrop-blur-xl flex flex-col justify-between h-full ${
-                isLight
-                  ? 'bg-white/85 border-slate-200/90 hover:border-cyan-400 hover:bg-white shadow-[0_8px_25px_rgba(0,0,0,0.03)]'
-                  : 'bg-[#060D1F]/80 border-slate-800/80 hover:border-cyan-500/50'
-              }`}>
+              <div className="p-6 sm:p-7 rounded-3xl bg-[#060D1F]/80 border border-slate-800/80 hover:border-cyan-500/50 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between h-full">
                 <div>
                   <motion.div
                     whileHover={{ scale: 1.15, rotate: 10, transition: { type: 'spring', stiffness: 450, damping: 10 } }}
@@ -133,30 +110,22 @@ export const CosmicValues: React.FC<CosmicValuesProps> = ({ theme = 'light' }) =
                   >
                     <Icon className="w-6 h-6 text-slate-950" />
                   </motion.div>
-                  <span className={`text-[10px] font-semibold uppercase tracking-wider block ${
-                    isLight ? 'text-cyan-700' : 'text-cyan-400'
-                  }`}>
+                  <span className="text-[10px] font-semibold text-cyan-400 uppercase tracking-wider block">
                     {val.subtitle}
                   </span>
-                  <h3 className={`text-lg font-bold font-display mt-1 ${
-                    isLight ? 'text-slate-900' : 'text-white'
-                  }`}>{val.title}</h3>
-                  <p className={`mt-2.5 text-xs leading-relaxed ${
-                    isLight ? 'text-slate-600' : 'text-slate-300'
-                  }`}>{val.desc}</p>
+                  <h3 className="text-lg font-bold text-white font-display mt-1">{val.title}</h3>
+                  <p className="mt-2.5 text-slate-300 text-xs leading-relaxed">{val.desc}</p>
                 </div>
 
-                <div className={`mt-5 pt-3.5 border-t flex items-center justify-between text-[11px] font-mono ${
-                  isLight ? 'border-slate-200 text-slate-500' : 'border-slate-800/60 text-slate-400'
-                }`}>
+                <div className="mt-5 pt-3.5 border-t border-slate-800/60 flex items-center justify-between text-[11px] font-mono text-slate-400">
                   <span>PILLAR 0{idx + 1}</span>
-                  <span className={`font-bold ${isLight ? 'text-amber-600' : 'text-amber-400'}`}>100% ALIGNED</span>
+                  <span className="text-amber-400 font-bold">100% ALIGNED</span>
                 </div>
               </div>
             </ElasticTiltCard>
           );
         })}
       </div>
-    </div>
+    </section>
   );
 };
